@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Compass, User, Settings, MessageCircle, Users, Bell, Book, GraduationCap, Calendar } from 'lucide-react';
+import { Home, Compass, User, Settings, MessageCircle, Users, Bell, Book, GraduationCap, Calendar, BookOpen, Video, PenTool, Lightbulb, Library } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
@@ -16,6 +16,17 @@ const Sidebar = () => {
     { name: 'Explorar', path: '/explore', icon: Compass },
     { name: 'Mensagens', path: '/messages', icon: MessageCircle, badge: unreadMessages },
     { name: 'Comunidades', path: '/communities', icon: Users },
+    { 
+      name: 'Recursos Educacionais', 
+      path: '/educational-resources', 
+      icon: Library,
+      subItems: [
+        { name: 'Material de Estudo', path: '/educational-resources?type=study', icon: BookOpen },
+        { name: 'Vídeo Aulas', path: '/educational-resources?type=video', icon: Video },
+        { name: 'Exercícios Práticos', path: '/educational-resources?type=exercises', icon: PenTool },
+        { name: 'Dicas de Estudo', path: '/educational-resources?type=tips', icon: Lightbulb }
+      ]
+    },
     { 
       name: 'Notificações', 
       path: '/notifications', 
