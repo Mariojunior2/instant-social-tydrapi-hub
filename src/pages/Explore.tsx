@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, Users, Trending, Calendar, User } from 'lucide-react';
+import { Search, Users, TrendingUp, Calendar, User } from 'lucide-react';
 
 const Explore = () => {
   const [activeTab, setActiveTab] = useState('trending');
@@ -132,7 +132,7 @@ const Explore = () => {
         <Tabs defaultValue="trending" value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid grid-cols-4 mb-6 bg-tydrapi-darkgray">
             <TabsTrigger value="trending" className="data-[state=active]:bg-tydrapi-red data-[state=active]:text-white">
-              <Trending size={16} className="mr-2" /> Tendências
+              <TrendingUp size={16} className="mr-2" /> Tendências
             </TabsTrigger>
             <TabsTrigger value="groups" className="data-[state=active]:bg-tydrapi-red data-[state=active]:text-white">
               <Users size={16} className="mr-2" /> Grupos
