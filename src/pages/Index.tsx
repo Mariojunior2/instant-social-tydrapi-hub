@@ -1,10 +1,10 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageCircle, Heart, Share2, UserPlus, X } from 'lucide-react';
+import { MessageCircle, Heart, Share2, UserPlus, X, Book, GraduationCap, CalendarCheck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 
@@ -61,7 +61,22 @@ const Index = () => {
       likes: 15,
       comments: 8,
       liked: true
-    }
+    },
+    {
+      id: 3,
+      user: {
+        name: 'Grupo de Estudos - Matemática Avançada',
+        username: 'matematica-grupo',
+        avatar: 'https://i.pravatar.cc/150?img=42',
+        isGroup: true
+      },
+      content: 'Lembrando a todos: nossa sessão de estudos para o próximo exame de Cálculo 3 será amanhã às 19h na sala de videoconferência. Preparei alguns exercícios práticos para revisarmos!',
+      time: '1h',
+      likes: 18,
+      comments: 5,
+      liked: false,
+      isAcademic: true
+    },
   ]);
 
   const [pendingConnections, setPendingConnections] = useState([
@@ -74,6 +89,56 @@ const Index = () => {
       mutualInterests: ['Programação', 'IA', 'Café'],
     }
   ]);
+
+  const [upcomingEvents, setUpcomingEvents] = useState([
+    {
+      id: 1,
+      title: 'Entrega do Trabalho Final',
+      subject: 'Programação Web',
+      date: 'Hoje, 23:59',
+      type: 'deadline',
+      priority: 'high'
+    },
+    {
+      id: 2,
+      title: 'Prova Bimestral',
+      subject: 'Banco de Dados',
+      date: 'Amanhã, 10:00',
+      type: 'exam',
+      priority: 'medium'
+    },
+    {
+      id: 3,
+      title: 'Lista de Exercícios 3',
+      subject: 'Algoritmos Avançados',
+      date: 'Sexta, 18:00',
+      type: 'homework',
+      priority: 'low'
+    }
+  ]);
+
+  // Efeito para mostrar notificações acadêmicas ao carregar a página
+  useEffect(() => {
+    // Atraso para dar tempo de carregar a página antes de mostrar os toasts
+    const timer = setTimeout(() => {
+      toast({
+        title: "Entrega de Trabalho - Hoje",
+        description: "Não esqueça de enviar o trabalho final de Programação Web até 23:59.",
+        academicType: "deadline",
+      });
+      
+      // Atrasa o segundo toast
+      setTimeout(() => {
+        toast({
+          title: "Prova Amanhã",
+          description: "Prepare-se para a prova de Banco de Dados às 10:00.",
+          academicType: "exam",
+        });
+      }, 3000);
+    }, 1000);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleLike = (postId: number) => {
     setPosts(posts.map(post => {
@@ -108,6 +173,44 @@ const Index = () => {
     <MainLayout>
       <div className="tydrapi-container py-6 animate-fade-in">
         <h1 className="text-2xl font-bold mb-6">Início</h1>
+        
+        {/* Eventos Acadêmicos */}
+        <section className="mb-8">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold flex items-center">
+              <GraduationCap className="mr-2" /> 
+              Eventos Acadêmicos
+            </h2>
+            <Button variant="link" className="text-tydrapi-red">Ver todos</Button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {upcomingEvents.map(event => (
+              <Card key={event.id} className={`tydrapi-card border-l-4 ${
+                event.priority === 'high' ? 'border-l-red-500' :
+                event.priority === 'medium' ? 'border-l-yellow-500' : 'border-l-green-500'
+              }`}>
+                <CardContent className="p-4">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="font-medium text-base">{event.title}</h3>
+                      <p className="text-sm text-tydrapi-gray">{event.subject}</p>
+                      <div className="flex items-center mt-2 text-xs text-tydrapi-gray">
+                        <CalendarCheck size={14} className="mr-1" />
+                        <span>{event.date}</span>
+                      </div>
+                    </div>
+                    <div>
+                      {event.type === 'deadline' && <Book className="text-red-500" size={20} />}
+                      {event.type === 'exam' && <GraduationCap className="text-yellow-500" size={20} />}
+                      {event.type === 'homework' && <Book className="text-green-500" size={20} />}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
         
         {/* Matches Ativos */}
         <section className="mb-8">
@@ -156,7 +259,7 @@ const Index = () => {
           
           <div className="space-y-4">
             {posts.map(post => (
-              <Card key={post.id} className="tydrapi-card">
+              <Card key={post.id} className={`tydrapi-card ${post.isAcademic ? 'border-l-4 border-l-yellow-500' : ''}`}>
                 <CardHeader className="pb-2">
                   <div className="flex justify-between">
                     <div className="flex items-center">
@@ -170,7 +273,9 @@ const Index = () => {
                       </div>
                     </div>
                     {post.user.isGroup && (
-                      <Badge variant="outline" className="bg-tydrapi-darkred border-none">Grupo</Badge>
+                      <Badge variant="outline" className={`${post.isAcademic ? 'bg-yellow-900' : 'bg-tydrapi-darkred'} border-none`}>
+                        {post.isAcademic ? 'Acadêmico' : 'Grupo'}
+                      </Badge>
                     )}
                   </div>
                 </CardHeader>

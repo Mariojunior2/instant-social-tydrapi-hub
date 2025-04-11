@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Compass, User, Settings, MessageCircle, Users, Bell } from 'lucide-react';
+import { Home, Compass, User, Settings, MessageCircle, Users, Bell, Book, GraduationCap, Calendar } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
@@ -9,13 +9,24 @@ const Sidebar = () => {
   const location = useLocation();
   const [unreadMessages, setUnreadMessages] = useState(3);
   const [unreadNotifications, setUnreadNotifications] = useState(5);
+  const [unreadSchoolNotifications, setUnreadSchoolNotifications] = useState(2);
   
   const navItems = [
     { name: 'Início', path: '/', icon: Home },
     { name: 'Explorar', path: '/explore', icon: Compass },
     { name: 'Mensagens', path: '/messages', icon: MessageCircle, badge: unreadMessages },
     { name: 'Comunidades', path: '/communities', icon: Users },
-    { name: 'Notificações', path: '/notifications', icon: Bell, badge: unreadNotifications },
+    { 
+      name: 'Notificações', 
+      path: '/notifications', 
+      icon: Bell, 
+      badge: unreadNotifications + unreadSchoolNotifications,
+      subItems: [
+        { name: 'Acadêmicas', path: '/notifications/academic', icon: GraduationCap, badge: unreadSchoolNotifications },
+        { name: 'Calendário', path: '/notifications/calendar', icon: Calendar },
+        { name: 'Materiais', path: '/notifications/materials', icon: Book }
+      ]
+    },
     { name: 'Perfil', path: '/profile', icon: User },
     { name: 'Configurações', path: '/settings', icon: Settings },
   ];
@@ -53,6 +64,34 @@ const Sidebar = () => {
                     </Badge>
                   )}
                 </Link>
+                
+                {/* Sub-itens para notificações acadêmicas */}
+                {item.subItems && isActive && (
+                  <ul className="ml-8 mt-2 space-y-1">
+                    {item.subItems.map((subItem) => (
+                      <li key={subItem.name}>
+                        <Link 
+                          to={subItem.path} 
+                          className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${
+                            location.pathname === subItem.path 
+                              ? 'bg-tydrapi-darkred text-white' 
+                              : 'text-tydrapi-gray hover:bg-tydrapi-darkgray hover:text-white'
+                          }`}
+                        >
+                          <div className="flex items-center">
+                            <subItem.icon size={16} className="mr-2" />
+                            <span>{subItem.name}</span>
+                          </div>
+                          {subItem.badge && (
+                            <Badge variant="destructive" className="bg-tydrapi-darkred ml-auto text-xs py-0 px-1.5">
+                              {subItem.badge}
+                            </Badge>
+                          )}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             );
           })}
