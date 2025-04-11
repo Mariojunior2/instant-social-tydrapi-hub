@@ -1,0 +1,79 @@
+
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Home, Compass, User, Settings, MessageCircle, Users, Bell } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
+const Sidebar = () => {
+  const location = useLocation();
+  const [unreadMessages, setUnreadMessages] = useState(3);
+  const [unreadNotifications, setUnreadNotifications] = useState(5);
+  
+  const navItems = [
+    { name: 'Início', path: '/', icon: Home },
+    { name: 'Explorar', path: '/explore', icon: Compass },
+    { name: 'Mensagens', path: '/messages', icon: MessageCircle, badge: unreadMessages },
+    { name: 'Comunidades', path: '/communities', icon: Users },
+    { name: 'Notificações', path: '/notifications', icon: Bell, badge: unreadNotifications },
+    { name: 'Perfil', path: '/profile', icon: User },
+    { name: 'Configurações', path: '/settings', icon: Settings },
+  ];
+
+  return (
+    <div className="w-64 border-r border-tydrapi-darkgray bg-tydrapi-black flex flex-col h-screen">
+      <div className="p-4 border-b border-tydrapi-darkgray">
+        <Link to="/" className="flex items-center">
+          <span className="text-tydrapi-red font-bold text-xl">Tydra</span>
+          <span className="text-white font-bold text-xl">PI</span>
+        </Link>
+      </div>
+      
+      <nav className="flex-1 overflow-y-auto py-4">
+        <ul className="space-y-2 px-2">
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <li key={item.name}>
+                <Link 
+                  to={item.path} 
+                  className={`flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
+                    isActive 
+                      ? 'bg-tydrapi-red text-white' 
+                      : 'text-tydrapi-gray hover:bg-tydrapi-darkgray hover:text-white'
+                  }`}
+                >
+                  <div className="flex items-center">
+                    <item.icon size={20} className="mr-3" />
+                    <span>{item.name}</span>
+                  </div>
+                  {item.badge && (
+                    <Badge variant="destructive" className="bg-tydrapi-red ml-auto">
+                      {item.badge}
+                    </Badge>
+                  )}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+      
+      <div className="p-4 border-t border-tydrapi-darkgray">
+        <div className="flex items-center">
+          <Avatar>
+            <AvatarImage src="https://i.pravatar.cc/150?img=68" />
+            <AvatarFallback className="bg-tydrapi-darkgray text-white">JD</AvatarFallback>
+          </Avatar>
+          <div className="ml-3">
+            <p className="text-sm font-medium text-white">João Silva</p>
+            <p className="text-xs text-tydrapi-gray">@joaosilva</p>
+          </div>
+          <div className="ml-auto w-2 h-2 rounded-full bg-green-500" title="Online"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;
