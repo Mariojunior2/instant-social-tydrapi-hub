@@ -1,0 +1,36 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0D0D0D;
+    color: white;
+}
+
+.tydrapi-red {
+    color: #E10600;
+}
+
+.tydrapi-gray {
+    color: #B0B0B0;
+}
+
+.tydrapi-darkgray {
+    background-color: #3A3A3A;
+}
+
+.tydrapi-black {
+    background-color: #0D0D0D;
+}
+
+.tydrapi-card {
+    background-color: #3A3A3A;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: border-color 0.3s;
+}
+
+.tydrapi-card:hover {
+    border-color: #E10600;
+}
