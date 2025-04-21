@@ -25,6 +25,8 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: border-color 0.3s;
   margin-bottom: 1rem;
+  height: auto;
+  width: 100%;
 }
 
 .tydrapi-card:hover {
@@ -238,4 +240,3 @@ h3 {
 .absolute {
   position: absolute;
 }
-

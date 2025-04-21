@@ -1,3 +1,4 @@
+
 import React from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import AcademicEvents from '@/components/home/AcademicEvents';
@@ -94,6 +95,39 @@ const Index = () => {
     });
   };
 
+  const socialPosts = [
+    {
+      id: 1,
+      author: {
+        name: "Pedro Mendes",
+        username: "pedromendes",
+        avatar: "https://i.pravatar.cc/150?img=5"
+      },
+      content: "Acabei de terminar a lista de exercícios de Cálculo III! Quem também já terminou?",
+      timestamp: "2h atrás",
+      likes: 15,
+      comments: 3,
+      liked: false
+    },
+    {
+      id: 2,
+      author: {
+        name: "Mariana Costa",
+        username: "marianacosta",
+        avatar: "https://i.pravatar.cc/150?img=6"
+      },
+      content: "Alguém tem material de estudo para a prova de Estrutura de Dados?",
+      timestamp: "5h atrás",
+      likes: 8,
+      comments: 12,
+      liked: true
+    }
+  ];
+
+  const handleLikePost = (id: number) => {
+    console.log(`Post ${id} liked`);
+  };
+
   return (
     <MainLayout>
       <div className="tydrapi-container">
@@ -101,7 +135,7 @@ const Index = () => {
           <div className="lg:col-span-8">
             <AcademicEvents events={academicEvents} />
             <ActiveMatches matches={activeMatches} />
-            <SocialPosts />
+            <SocialPosts posts={socialPosts} onLike={handleLikePost} />
           </div>
           <div className="lg:col-span-4">
             <PendingConnections
