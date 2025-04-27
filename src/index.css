@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -75,5 +74,86 @@
   
   .chat-bubble-received {
     @apply chat-bubble bg-tydrapi-darkgray text-white mr-auto;
+  }
+
+  /* Notification specific styles */
+  .notification-card {
+    @apply bg-tydrapi-darkgray rounded-lg p-4 border border-tydrapi-gray/20 relative transition-all hover:border-tydrapi-red/50;
+  }
+
+  .notification-card.unread {
+    @apply border-l-4 border-l-tydrapi-red;
+  }
+
+  .notification-icon {
+    @apply flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center;
+  }
+
+  .notification-icon-academic {
+    @apply text-yellow-400;
+  }
+
+  .notification-icon-homework {
+    @apply text-blue-400;
+  }
+
+  .notification-icon-deadline {
+    @apply text-red-400;
+  }
+
+  .notification-icon-event {
+    @apply text-green-400;
+  }
+
+  .notification-priority {
+    @apply ml-2 flex items-center;
+  }
+
+  .notification-priority-high {
+    @apply text-red-500;
+  }
+
+  .notification-priority-medium {
+    @apply text-yellow-500;
+  }
+
+  .notification-priority-low {
+    @apply text-green-500;
+  }
+
+  .notification-tabs {
+    @apply grid grid-cols-4 bg-tydrapi-darkgray rounded-lg p-1 mb-6;
+  }
+
+  .notification-tab {
+    @apply flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors;
+  }
+
+  .notification-tab[data-state="active"] {
+    @apply bg-tydrapi-red text-white;
+  }
+
+  .notification-tab[data-state="inactive"] {
+    @apply text-tydrapi-gray hover:bg-tydrapi-gray/10;
+  }
+
+  .notification-badge {
+    @apply ml-2 bg-tydrapi-red text-white text-xs font-medium px-2 py-0.5 rounded-full;
+  }
+
+  .notification-actions {
+    @apply flex gap-2 mt-4;
+  }
+
+  .notification-timestamp {
+    @apply text-xs text-tydrapi-gray;
+  }
+
+  .notification-title {
+    @apply text-base font-medium flex items-center;
+  }
+
+  .notification-message {
+    @apply text-sm mt-1 text-tydrapi-gray;
   }
 }
