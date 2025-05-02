@@ -72,230 +72,234 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'account';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TydraPI - Configurações</title>
-    <link rel="stylesheet" href="notifications-php.css">
+    <link rel="stylesheet" href="settings-php.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="tydrapi-container">
-        <h1 class="text-2xl font-bold mb-6">Configurações</h1>
+    <div class="settings-container">
+        <h1 class="settings-title">Configurações</h1>
         
         <?php if (isset($_SESSION['settings_message'])): ?>
-            <div class="notification-toast">
+            <div class="settings-toast">
                 <?php echo $_SESSION['settings_message']; ?>
                 <?php unset($_SESSION['settings_message']); ?>
             </div>
         <?php endif; ?>
         
-        <div class="flex flex-col md:flex-row gap-6">
+        <div class="settings-flex settings-flex-col settings-flex-md-row settings-gap-6">
             <!-- Sidebar Navigation -->
-            <div class="w-full md:w-64">
-                <div class="notification-tabs flex flex-col w-full h-auto bg-transparent space-y-1">
-                    <a href="?tab=account" class="notification-tab justify-start w-full <?php echo $activeTab === 'account' ? 'active' : ''; ?>">
-                        <i class="fa fa-user mr-2"></i> Conta
+            <div class="settings-w-full settings-w-md-64">
+                <div class="settings-tabs">
+                    <a href="?tab=account" class="settings-tab <?php echo $activeTab === 'account' ? 'active' : ''; ?>">
+                        <i class="fa fa-user settings-mr-2"></i> Conta
                     </a>
-                    <a href="?tab=security" class="notification-tab justify-start w-full <?php echo $activeTab === 'security' ? 'active' : ''; ?>">
-                        <i class="fa fa-lock mr-2"></i> Segurança
+                    <a href="?tab=security" class="settings-tab <?php echo $activeTab === 'security' ? 'active' : ''; ?>">
+                        <i class="fa fa-lock settings-mr-2"></i> Segurança
                     </a>
-                    <a href="?tab=notifications" class="notification-tab justify-start w-full <?php echo $activeTab === 'notifications' ? 'active' : ''; ?>">
-                        <i class="fa fa-bell mr-2"></i> Notificações
+                    <a href="?tab=notifications" class="settings-tab <?php echo $activeTab === 'notifications' ? 'active' : ''; ?>">
+                        <i class="fa fa-bell settings-mr-2"></i> Notificações
                     </a>
-                    <a href="?tab=privacy" class="notification-tab justify-start w-full <?php echo $activeTab === 'privacy' ? 'active' : ''; ?>">
-                        <i class="fa fa-eye mr-2"></i> Privacidade
+                    <a href="?tab=privacy" class="settings-tab <?php echo $activeTab === 'privacy' ? 'active' : ''; ?>">
+                        <i class="fa fa-eye settings-mr-2"></i> Privacidade
                     </a>
-                    <a href="?tab=appearance" class="notification-tab justify-start w-full <?php echo $activeTab === 'appearance' ? 'active' : ''; ?>">
-                        <i class="fa fa-moon mr-2"></i> Aparência
+                    <a href="?tab=appearance" class="settings-tab <?php echo $activeTab === 'appearance' ? 'active' : ''; ?>">
+                        <i class="fa fa-moon settings-mr-2"></i> Aparência
                     </a>
                     
-                    <hr class="my-2 bg-tydrapi-darkgray">
+                    <hr class="settings-divider">
                     
-                    <a href="#" class="notification-tab justify-start text-tydrapi-red w-full hover:bg-tydrapi-darkgray">
-                        <i class="fa fa-sign-out-alt mr-2"></i> Sair
+                    <a href="#" class="settings-tab settings-text-red">
+                        <i class="fa fa-sign-out-alt settings-mr-2"></i> Sair
                     </a>
                 </div>
             </div>
             
             <!-- Tab Content -->
-            <div class="flex-1">
+            <div class="settings-flex-1">
                 <?php if ($activeTab === 'account'): ?>
-                    <div class="notification-card">
-                        <div class="mb-4">
-                            <h2 class="text-xl font-semibold">Informações de Conta</h2>
-                            <p class="text-tydrapi-gray">
+                    <div class="settings-card">
+                        <div class="settings-mb-4">
+                            <h2 class="settings-subtitle">Informações de Conta</h2>
+                            <p class="settings-description">
                                 Gerencie suas informações pessoais e de perfil
                             </p>
                         </div>
                         
-                        <form method="post" class="space-y-6">
-                            <div class="flex flex-col items-center md:flex-row md:items-start gap-4 mb-6">
-                                <div class="relative">
-                                    <div class="h-24 w-24 rounded-full overflow-hidden">
-                                        <img src="https://i.pravatar.cc/150?img=68" alt="Foto de perfil" class="w-full h-full object-cover">
+                        <form method="post" class="settings-form">
+                            <div class="settings-profile settings-mb-6">
+                                <div class="settings-avatar-container">
+                                    <div class="settings-avatar">
+                                        <img src="https://i.pravatar.cc/150?img=68" alt="Foto de perfil">
                                     </div>
-                                    <button type="button" class="absolute bottom-0 right-0 h-8 w-8 rounded-full bg-tydrapi-red hover:bg-tydrapi-darkred flex items-center justify-center">
-                                        <i class="fa fa-upload text-sm"></i>
+                                    <button type="button" class="settings-avatar-upload">
+                                        <i class="fa fa-upload"></i>
                                     </button>
                                 </div>
-                                <div class="flex-1">
-                                    <h3 class="font-medium text-center md:text-left"><?php echo $userSettings['profile']['name']; ?></h3>
-                                    <p class="text-sm text-tydrapi-gray text-center md:text-left">@<?php echo $userSettings['profile']['username']; ?></p>
-                                    <p class="text-sm mt-2 text-center md:text-left"><?php echo $userSettings['profile']['bio']; ?></p>
+                                <div class="settings-user-info">
+                                    <h3 class="settings-user-name"><?php echo $userSettings['profile']['name']; ?></h3>
+                                    <p class="settings-user-username">@<?php echo $userSettings['profile']['username']; ?></p>
+                                    <p class="settings-user-bio"><?php echo $userSettings['profile']['bio']; ?></p>
                                 </div>
                             </div>
                             
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="space-y-2">
-                                    <label for="name" class="block text-sm font-medium">Nome</label>
+                            <div class="settings-form-group">
+                                <div class="settings-form-field">
+                                    <label for="name" class="settings-label">Nome</label>
                                     <input 
                                         id="name" 
                                         name="name" 
                                         value="<?php echo $userSettings['profile']['name']; ?>" 
-                                        class="tydrapi-input bg-tydrapi-black border-tydrapi-darkgray"
+                                        class="settings-input"
                                     >
                                 </div>
-                                <div class="space-y-2">
-                                    <label for="username" class="block text-sm font-medium">Nome de usuário</label>
+                                <div class="settings-form-field">
+                                    <label for="username" class="settings-label">Nome de usuário</label>
                                     <input 
                                         id="username" 
                                         name="username" 
                                         value="<?php echo $userSettings['profile']['username']; ?>" 
-                                        class="tydrapi-input bg-tydrapi-black border-tydrapi-darkgray"
+                                        class="settings-input"
                                     >
                                 </div>
                             </div>
                             
-                            <div class="space-y-2">
-                                <label for="bio" class="block text-sm font-medium">Biografia</label>
+                            <div class="settings-form-field">
+                                <label for="bio" class="settings-label">Biografia</label>
                                 <textarea 
                                     id="bio" 
                                     name="bio" 
                                     rows="3"
-                                    class="tydrapi-input bg-tydrapi-black border-tydrapi-darkgray resize-none"
+                                    class="settings-textarea"
                                 ><?php echo $userSettings['profile']['bio']; ?></textarea>
                             </div>
                             
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="space-y-2">
-                                    <label for="email" class="block text-sm font-medium">Email</label>
+                            <div class="settings-form-group">
+                                <div class="settings-form-field">
+                                    <label for="email" class="settings-label">Email</label>
                                     <input 
                                         id="email" 
                                         name="email" 
                                         type="email" 
                                         value="<?php echo $userSettings['profile']['email']; ?>" 
-                                        class="tydrapi-input bg-tydrapi-black border-tydrapi-darkgray"
+                                        class="settings-input"
                                     >
                                 </div>
-                                <div class="space-y-2">
-                                    <label for="phone" class="block text-sm font-medium">Telefone</label>
+                                <div class="settings-form-field">
+                                    <label for="phone" class="settings-label">Telefone</label>
                                     <input 
                                         id="phone" 
                                         name="phone" 
                                         value="<?php echo $userSettings['profile']['phone']; ?>" 
-                                        class="tydrapi-input bg-tydrapi-black border-tydrapi-darkgray"
+                                        class="settings-input"
                                     >
                                 </div>
                             </div>
                             
-                            <button 
-                                type="submit" 
-                                name="save_profile" 
-                                class="tydrapi-button w-full md:w-auto"
-                            >
-                                Salvar alterações
-                            </button>
+                            <div>
+                                <button 
+                                    type="submit" 
+                                    name="save_profile" 
+                                    class="settings-btn settings-w-full settings-w-md-auto"
+                                >
+                                    Salvar alterações
+                                </button>
+                            </div>
                         </form>
                     </div>
                 <?php elseif ($activeTab === 'security'): ?>
-                    <div class="notification-card">
-                        <div class="mb-4">
-                            <h2 class="text-xl font-semibold">Segurança</h2>
-                            <p class="text-tydrapi-gray">
+                    <div class="settings-card">
+                        <div class="settings-mb-4">
+                            <h2 class="settings-subtitle">Segurança</h2>
+                            <p class="settings-description">
                                 Gerencie sua senha e configurações de segurança
                             </p>
                         </div>
                         
-                        <div class="space-y-6">
-                            <form method="post" class="space-y-4">
-                                <h3 class="text-lg font-medium">Alterar senha</h3>
+                        <div class="settings-space-y-6">
+                            <form method="post" class="settings-space-y-4">
+                                <h3 class="settings-group-title">Alterar senha</h3>
                                 
-                                <div class="space-y-2">
-                                    <label for="current-password" class="block text-sm font-medium">Senha atual</label>
+                                <div class="settings-form-field">
+                                    <label for="current-password" class="settings-label">Senha atual</label>
                                     <input 
                                         id="current-password" 
                                         name="current_password"
                                         type="password" 
-                                        class="tydrapi-input bg-tydrapi-black border-tydrapi-darkgray"
+                                        class="settings-input"
                                     >
                                 </div>
                                 
-                                <div class="space-y-2">
-                                    <label for="new-password" class="block text-sm font-medium">Nova senha</label>
+                                <div class="settings-form-field">
+                                    <label for="new-password" class="settings-label">Nova senha</label>
                                     <input 
                                         id="new-password" 
                                         name="new_password"
                                         type="password" 
-                                        class="tydrapi-input bg-tydrapi-black border-tydrapi-darkgray"
+                                        class="settings-input"
                                     >
                                 </div>
                                 
-                                <div class="space-y-2">
-                                    <label for="confirm-password" class="block text-sm font-medium">Confirmar nova senha</label>
+                                <div class="settings-form-field">
+                                    <label for="confirm-password" class="settings-label">Confirmar nova senha</label>
                                     <input 
                                         id="confirm-password" 
                                         name="confirm_password"
                                         type="password" 
-                                        class="tydrapi-input bg-tydrapi-black border-tydrapi-darkgray"
+                                        class="settings-input"
                                     >
                                 </div>
                                 
-                                <button 
-                                    type="submit" 
-                                    name="save_password" 
-                                    class="tydrapi-button"
-                                >
-                                    Atualizar senha
-                                </button>
+                                <div>
+                                    <button 
+                                        type="submit" 
+                                        name="save_password" 
+                                        class="settings-btn"
+                                    >
+                                        Atualizar senha
+                                    </button>
+                                </div>
                             </form>
                             
-                            <hr class="my-4 bg-tydrapi-darkgray">
+                            <hr class="settings-divider">
                             
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-medium">Autenticação de dois fatores</h3>
-                                <p class="text-sm text-tydrapi-gray">
+                            <div class="settings-space-y-4">
+                                <h3 class="settings-group-title">Autenticação de dois fatores</h3>
+                                <p class="settings-hint">
                                     Adicione uma camada extra de segurança à sua conta com a autenticação de dois fatores.
                                 </p>
                                 
-                                <div class="flex justify-between items-center">
-                                    <label for="twofa" class="block text-sm font-medium">Ativar autenticação de dois fatores</label>
-                                    <label class="switch">
+                                <div class="settings-form-row">
+                                    <label for="twofa" class="settings-label">Ativar autenticação de dois fatores</label>
+                                    <label class="settings-switch">
                                         <input type="checkbox" id="twofa" <?php echo $userSettings['security']['two_factor'] ? 'checked' : ''; ?>>
-                                        <span class="slider round"></span>
+                                        <span class="settings-slider"></span>
                                     </label>
                                 </div>
                             </div>
                             
-                            <hr class="my-4 bg-tydrapi-darkgray">
+                            <hr class="settings-divider">
                             
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-medium">Sessões ativas</h3>
-                                <p class="text-sm text-tydrapi-gray">
+                            <div class="settings-space-y-4">
+                                <h3 class="settings-group-title">Sessões ativas</h3>
+                                <p class="settings-hint">
                                     Dispositivos onde você está conectado atualmente.
                                 </p>
                                 
-                                <div class="space-y-3">
-                                    <div class="flex justify-between items-center p-3 border border-tydrapi-darkgray rounded-lg">
-                                        <div>
-                                            <h4 class="font-medium">Chrome - Windows</h4>
-                                            <p class="text-xs text-tydrapi-gray">São Paulo, Brasil • Ativo agora</p>
+                                <div class="settings-space-y-3">
+                                    <div class="settings-session-item">
+                                        <div class="settings-session-info">
+                                            <h4>Chrome - Windows</h4>
+                                            <p>São Paulo, Brasil • Ativo agora</p>
                                         </div>
-                                        <span class="notification-badge bg-green-600">Atual</span>
+                                        <span class="settings-badge">Atual</span>
                                     </div>
                                     
-                                    <div class="flex justify-between items-center p-3 border border-tydrapi-darkgray rounded-lg">
-                                        <div>
-                                            <h4 class="font-medium">Safari - iPhone</h4>
-                                            <p class="text-xs text-tydrapi-gray">São Paulo, Brasil • Há 2 horas</p>
+                                    <div class="settings-session-item">
+                                        <div class="settings-session-info">
+                                            <h4>Safari - iPhone</h4>
+                                            <p>São Paulo, Brasil • Há 2 horas</p>
                                         </div>
-                                        <button type="button" class="tydrapi-button-outline text-red-500 hover:bg-red-500 hover:text-white">
+                                        <button type="button" class="settings-btn-danger">
                                             Encerrar
                                         </button>
                                     </div>
@@ -304,137 +308,139 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'account';
                         </div>
                     </div>
                 <?php elseif ($activeTab === 'notifications'): ?>
-                    <div class="notification-card">
-                        <div class="mb-4">
-                            <h2 class="text-xl font-semibold">Notificações</h2>
-                            <p class="text-tydrapi-gray">
+                    <div class="settings-card">
+                        <div class="settings-mb-4">
+                            <h2 class="settings-subtitle">Notificações</h2>
+                            <p class="settings-description">
                                 Gerencie como você recebe notificações
                             </p>
                         </div>
                         
-                        <form method="post" class="space-y-6">
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-medium">Notificações push</h3>
+                        <form method="post" class="settings-form">
+                            <div class="settings-space-y-4">
+                                <h3 class="settings-group-title">Notificações push</h3>
                                 
-                                <div class="space-y-3">
-                                    <div class="flex justify-between items-center">
-                                        <label for="notify-messages" class="block text-sm font-medium">Mensagens</label>
-                                        <label class="switch">
+                                <div class="settings-space-y-3">
+                                    <div class="settings-form-row">
+                                        <label for="notify-messages" class="settings-label">Mensagens</label>
+                                        <label class="settings-switch">
                                             <input 
                                                 type="checkbox" 
                                                 id="notify-messages" 
                                                 name="notifications[messages]" 
                                                 <?php echo $userSettings['notifications']['messages'] ? 'checked' : ''; ?>
                                             >
-                                            <span class="slider round"></span>
+                                            <span class="settings-slider"></span>
                                         </label>
                                     </div>
                                     
-                                    <div class="flex justify-between items-center">
-                                        <label for="notify-matches" class="block text-sm font-medium">Novos matches</label>
-                                        <label class="switch">
+                                    <div class="settings-form-row">
+                                        <label for="notify-matches" class="settings-label">Novos matches</label>
+                                        <label class="settings-switch">
                                             <input 
                                                 type="checkbox" 
                                                 id="notify-matches" 
                                                 name="notifications[matches]" 
                                                 <?php echo $userSettings['notifications']['matches'] ? 'checked' : ''; ?>
                                             >
-                                            <span class="slider round"></span>
+                                            <span class="settings-slider"></span>
                                         </label>
                                     </div>
                                     
-                                    <div class="flex justify-between items-center">
-                                        <label for="notify-groups" class="block text-sm font-medium">Atividade em grupos</label>
-                                        <label class="switch">
+                                    <div class="settings-form-row">
+                                        <label for="notify-groups" class="settings-label">Atividade em grupos</label>
+                                        <label class="settings-switch">
                                             <input 
                                                 type="checkbox" 
                                                 id="notify-groups" 
                                                 name="notifications[groups]" 
                                                 <?php echo $userSettings['notifications']['groups'] ? 'checked' : ''; ?>
                                             >
-                                            <span class="slider round"></span>
+                                            <span class="settings-slider"></span>
                                         </label>
                                     </div>
                                     
-                                    <div class="flex justify-between items-center">
-                                        <label for="notify-mentions" class="block text-sm font-medium">Menções</label>
-                                        <label class="switch">
+                                    <div class="settings-form-row">
+                                        <label for="notify-mentions" class="settings-label">Menções</label>
+                                        <label class="settings-switch">
                                             <input 
                                                 type="checkbox" 
                                                 id="notify-mentions" 
                                                 name="notifications[mentions]" 
                                                 <?php echo $userSettings['notifications']['mentions'] ? 'checked' : ''; ?>
                                             >
-                                            <span class="slider round"></span>
+                                            <span class="settings-slider"></span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             
-                            <hr class="my-4 bg-tydrapi-darkgray">
+                            <hr class="settings-divider">
                             
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-medium">Métodos de notificação</h3>
+                            <div class="settings-space-y-4">
+                                <h3 class="settings-group-title">Métodos de notificação</h3>
                                 
-                                <div class="space-y-3">
-                                    <div class="flex justify-between items-center">
+                                <div class="settings-space-y-3">
+                                    <div class="settings-form-row">
                                         <div>
-                                            <label for="notify-email" class="block text-sm font-medium">Notificações por email</label>
-                                            <p class="text-xs text-tydrapi-gray">Receba resumos e atualizações importantes por email</p>
+                                            <label for="notify-email" class="settings-label">Notificações por email</label>
+                                            <p class="settings-hint">Receba resumos e atualizações importantes por email</p>
                                         </div>
-                                        <label class="switch">
+                                        <label class="settings-switch">
                                             <input 
                                                 type="checkbox" 
                                                 id="notify-email" 
                                                 name="notifications[email_notifications]" 
                                                 <?php echo $userSettings['notifications']['email_notifications'] ? 'checked' : ''; ?>
                                             >
-                                            <span class="slider round"></span>
+                                            <span class="settings-slider"></span>
                                         </label>
                                     </div>
                                     
-                                    <div class="flex justify-between items-center">
+                                    <div class="settings-form-row">
                                         <div>
-                                            <label for="notify-push" class="block text-sm font-medium">Notificações push</label>
-                                            <p class="text-xs text-tydrapi-gray">Receba notificações em tempo real no seu dispositivo</p>
+                                            <label for="notify-push" class="settings-label">Notificações push</label>
+                                            <p class="settings-hint">Receba notificações em tempo real no seu dispositivo</p>
                                         </div>
-                                        <label class="switch">
+                                        <label class="settings-switch">
                                             <input 
                                                 type="checkbox" 
                                                 id="notify-push" 
                                                 name="notifications[push_notifications]" 
                                                 <?php echo $userSettings['notifications']['push_notifications'] ? 'checked' : ''; ?>
                                             >
-                                            <span class="slider round"></span>
+                                            <span class="settings-slider"></span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             
-                            <button type="submit" name="save_notification_settings" class="tydrapi-button">
-                                Salvar preferências
-                            </button>
+                            <div class="settings-mt-4">
+                                <button type="submit" name="save_notification_settings" class="settings-btn">
+                                    Salvar preferências
+                                </button>
+                            </div>
                         </form>
                     </div>
                 <?php elseif ($activeTab === 'privacy'): ?>
-                    <div class="notification-card">
-                        <div class="mb-4">
-                            <h2 class="text-xl font-semibold">Privacidade</h2>
-                            <p class="text-tydrapi-gray">
+                    <div class="settings-card">
+                        <div class="settings-mb-4">
+                            <h2 class="settings-subtitle">Privacidade</h2>
+                            <p class="settings-description">
                                 Gerencie quem pode ver seu perfil e como seus dados são usados
                             </p>
                         </div>
                         
-                        <form method="post" class="space-y-6">
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-medium">Visibilidade do perfil</h3>
+                        <form method="post" class="settings-form">
+                            <div class="settings-space-y-4">
+                                <h3 class="settings-group-title">Visibilidade do perfil</h3>
                                 
-                                <div class="space-y-2">
-                                    <label for="profile-visibility" class="block text-sm font-medium">Quem pode ver meu perfil</label>
+                                <div class="settings-form-field">
+                                    <label for="profile-visibility" class="settings-label">Quem pode ver meu perfil</label>
                                     <select 
                                         id="profile-visibility" 
                                         name="privacy[profile_visibility]" 
-                                        class="tydrapi-input bg-tydrapi-black border-tydrapi-darkgray"
+                                        class="settings-select"
                                     >
                                         <option value="all" <?php echo $userSettings['privacy']['profile_visibility'] == 'all' ? 'selected' : ''; ?>>Todos</option>
                                         <option value="connections" <?php echo $userSettings['privacy']['profile_visibility'] == 'connections' ? 'selected' : ''; ?>>Apenas conexões</option>
@@ -443,51 +449,51 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'account';
                                 </div>
                             </div>
                             
-                            <div class="space-y-3">
-                                <div class="flex justify-between items-center">
+                            <div class="settings-space-y-3">
+                                <div class="settings-form-row">
                                     <div>
-                                        <label for="online-status" class="block text-sm font-medium">Mostrar status online</label>
-                                        <p class="text-xs text-tydrapi-gray">Permite que outros usuários vejam quando você está online</p>
+                                        <label for="online-status" class="settings-label">Mostrar status online</label>
+                                        <p class="settings-hint">Permite que outros usuários vejam quando você está online</p>
                                     </div>
-                                    <label class="switch">
+                                    <label class="settings-switch">
                                         <input 
                                             type="checkbox" 
                                             id="online-status" 
                                             name="privacy[online_status]" 
                                             <?php echo $userSettings['privacy']['online_status'] ? 'checked' : ''; ?>
                                         >
-                                        <span class="slider round"></span>
+                                        <span class="settings-slider"></span>
                                     </label>
                                 </div>
                                 
-                                <div class="flex justify-between items-center">
+                                <div class="settings-form-row">
                                     <div>
-                                        <label for="read-receipts" class="block text-sm font-medium">Confirmações de leitura</label>
-                                        <p class="text-xs text-tydrapi-gray">Permite que outros usuários vejam quando você leu suas mensagens</p>
+                                        <label for="read-receipts" class="settings-label">Confirmações de leitura</label>
+                                        <p class="settings-hint">Permite que outros usuários vejam quando você leu suas mensagens</p>
                                     </div>
-                                    <label class="switch">
+                                    <label class="settings-switch">
                                         <input 
                                             type="checkbox" 
                                             id="read-receipts" 
                                             name="privacy[read_receipts]" 
                                             <?php echo $userSettings['privacy']['read_receipts'] ? 'checked' : ''; ?>
                                         >
-                                        <span class="slider round"></span>
+                                        <span class="settings-slider"></span>
                                     </label>
                                 </div>
                             </div>
                             
-                            <hr class="my-4 bg-tydrapi-darkgray">
+                            <hr class="settings-divider">
                             
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-medium">Configurações de chat</h3>
+                            <div class="settings-space-y-4">
+                                <h3 class="settings-group-title">Configurações de chat</h3>
                                 
-                                <div class="space-y-2">
-                                    <label for="chat-expiration" class="block text-sm font-medium">Expiração de chats temporários</label>
+                                <div class="settings-form-field">
+                                    <label for="chat-expiration" class="settings-label">Expiração de chats temporários</label>
                                     <select 
                                         id="chat-expiration" 
                                         name="privacy[chat_expiration]" 
-                                        class="tydrapi-input bg-tydrapi-black border-tydrapi-darkgray"
+                                        class="settings-select"
                                     >
                                         <option value="12h" <?php echo $userSettings['privacy']['chat_expiration'] == '12h' ? 'selected' : ''; ?>>12 horas</option>
                                         <option value="24h" <?php echo $userSettings['privacy']['chat_expiration'] == '24h' ? 'selected' : ''; ?>>24 horas</option>
@@ -497,76 +503,80 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'account';
                                 </div>
                             </div>
                             
-                            <hr class="my-4 bg-tydrapi-darkgray">
+                            <hr class="settings-divider">
                             
-                            <div class="space-y-3">
-                                <h3 class="text-lg font-medium">Dados e permissões</h3>
+                            <div class="settings-space-y-3">
+                                <h3 class="settings-group-title">Dados e permissões</h3>
                                 
-                                <div class="flex justify-between items-center">
+                                <div class="settings-form-row">
                                     <div>
-                                        <label for="data-collection" class="block text-sm font-medium">Coleta de dados para melhorias</label>
-                                        <p class="text-xs text-tydrapi-gray">Permite a coleta de dados de uso para melhorar a experiência</p>
+                                        <label for="data-collection" class="settings-label">Coleta de dados para melhorias</label>
+                                        <p class="settings-hint">Permite a coleta de dados de uso para melhorar a experiência</p>
                                     </div>
-                                    <label class="switch">
+                                    <label class="settings-switch">
                                         <input 
                                             type="checkbox" 
                                             id="data-collection" 
                                             name="privacy[data_collection]" 
                                             <?php echo $userSettings['privacy']['data_collection'] ? 'checked' : ''; ?>
                                         >
-                                        <span class="slider round"></span>
+                                        <span class="settings-slider"></span>
                                     </label>
                                 </div>
                                 
-                                <button type="button" class="tydrapi-button-outline w-full mt-2 border-tydrapi-gray text-tydrapi-gray hover:bg-tydrapi-darkgray">
-                                    <i class="fa fa-shield-alt mr-2"></i> Solicitar download dos meus dados
-                                </button>
+                                <div class="settings-mt-2">
+                                    <button type="button" class="settings-btn-outline settings-w-full">
+                                        <i class="fa fa-shield-alt settings-mr-2"></i> Solicitar download dos meus dados
+                                    </button>
+                                </div>
                             </div>
                             
-                            <button type="submit" name="save_privacy" class="tydrapi-button">
-                                Salvar configurações
-                            </button>
+                            <div class="settings-mt-4">
+                                <button type="submit" name="save_privacy" class="settings-btn">
+                                    Salvar configurações
+                                </button>
+                            </div>
                         </form>
                     </div>
                 <?php elseif ($activeTab === 'appearance'): ?>
-                    <div class="notification-card">
-                        <div class="mb-4">
-                            <h2 class="text-xl font-semibold">Aparência</h2>
-                            <p class="text-tydrapi-gray">
+                    <div class="settings-card">
+                        <div class="settings-mb-4">
+                            <h2 class="settings-subtitle">Aparência</h2>
+                            <p class="settings-description">
                                 Personalize a aparência e a experiência da aplicação
                             </p>
                         </div>
                         
-                        <form method="post" class="space-y-6">
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-medium">Tema</h3>
+                        <form method="post" class="settings-form">
+                            <div class="settings-space-y-4">
+                                <h3 class="settings-group-title">Tema</h3>
                                 
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div class="border rounded-lg p-4 flex items-center justify-center cursor-pointer border-<?php echo $userSettings['appearance']['theme'] === 'light' ? 'tydrapi-red bg-tydrapi-darkgray' : 'tydrapi-darkgray hover:border-tydrapi-gray'; ?>">
-                                        <label for="theme-light" class="cursor-pointer flex flex-col items-center">
-                                            <i class="fa fa-sun mb-2"></i>
+                                <div class="settings-theme-options">
+                                    <div class="settings-theme-option <?php echo $userSettings['appearance']['theme'] === 'light' ? 'active' : ''; ?>">
+                                        <label for="theme-light" class="settings-theme-icon">
+                                            <i class="fa fa-sun settings-mb-2"></i>
                                             <span>Claro</span>
                                             <input 
                                                 type="radio" 
                                                 id="theme-light" 
                                                 name="appearance[theme]" 
                                                 value="light" 
-                                                class="hidden" 
+                                                class="settings-hidden" 
                                                 <?php echo $userSettings['appearance']['theme'] === 'light' ? 'checked' : ''; ?>
                                             >
                                         </label>
                                     </div>
                                     
-                                    <div class="border rounded-lg p-4 flex items-center justify-center cursor-pointer border-<?php echo $userSettings['appearance']['theme'] === 'dark' ? 'tydrapi-red bg-tydrapi-darkgray' : 'tydrapi-darkgray hover:border-tydrapi-gray'; ?>">
-                                        <label for="theme-dark" class="cursor-pointer flex flex-col items-center">
-                                            <i class="fa fa-moon mb-2"></i>
+                                    <div class="settings-theme-option <?php echo $userSettings['appearance']['theme'] === 'dark' ? 'active' : ''; ?>">
+                                        <label for="theme-dark" class="settings-theme-icon">
+                                            <i class="fa fa-moon settings-mb-2"></i>
                                             <span>Escuro</span>
                                             <input 
                                                 type="radio" 
                                                 id="theme-dark" 
                                                 name="appearance[theme]" 
                                                 value="dark" 
-                                                class="hidden" 
+                                                class="settings-hidden" 
                                                 <?php echo $userSettings['appearance']['theme'] === 'dark' ? 'checked' : ''; ?>
                                             >
                                         </label>
@@ -574,15 +584,15 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'account';
                                 </div>
                             </div>
                             
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-medium">Configurações de texto</h3>
+                            <div class="settings-space-y-4 settings-mt-6">
+                                <h3 class="settings-group-title">Configurações de texto</h3>
                                 
-                                <div class="space-y-2">
-                                    <label for="font-size" class="block text-sm font-medium">Tamanho da fonte</label>
+                                <div class="settings-form-field">
+                                    <label for="font-size" class="settings-label">Tamanho da fonte</label>
                                     <select 
                                         id="font-size" 
                                         name="appearance[font_size]" 
-                                        class="tydrapi-input bg-tydrapi-black border-tydrapi-darkgray"
+                                        class="settings-select"
                                     >
                                         <option value="small" <?php echo $userSettings['appearance']['font_size'] === 'small' ? 'selected' : ''; ?>>Pequeno</option>
                                         <option value="medium" <?php echo $userSettings['appearance']['font_size'] === 'medium' ? 'selected' : ''; ?>>Médio</option>
@@ -591,15 +601,15 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'account';
                                 </div>
                             </div>
                             
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-medium">Idioma</h3>
+                            <div class="settings-space-y-4 settings-mt-6">
+                                <h3 class="settings-group-title">Idioma</h3>
                                 
-                                <div class="space-y-2">
-                                    <label for="language" class="block text-sm font-medium">Idioma da aplicação</label>
+                                <div class="settings-form-field">
+                                    <label for="language" class="settings-label">Idioma da aplicação</label>
                                     <select 
                                         id="language" 
                                         name="appearance[language]" 
-                                        class="tydrapi-input bg-tydrapi-black border-tydrapi-darkgray"
+                                        class="settings-select"
                                     >
                                         <option value="pt-BR" <?php echo $userSettings['appearance']['language'] === 'pt-BR' ? 'selected' : ''; ?>>Português (Brasil)</option>
                                         <option value="en-US" <?php echo $userSettings['appearance']['language'] === 'en-US' ? 'selected' : ''; ?>>English (US)</option>
@@ -608,9 +618,11 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'account';
                                 </div>
                             </div>
                             
-                            <button type="submit" name="save_appearance" class="tydrapi-button">
-                                Salvar preferências
-                            </button>
+                            <div class="settings-mt-6">
+                                <button type="submit" name="save_appearance" class="settings-btn">
+                                    Salvar preferências
+                                </button>
+                            </div>
                         </form>
                     </div>
                 <?php endif; ?>
@@ -621,7 +633,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'account';
     <script>
         // Toast notification script
         document.addEventListener('DOMContentLoaded', function() {
-            const toast = document.querySelector('.notification-toast');
+            const toast = document.querySelector('.settings-toast');
             if (toast) {
                 setTimeout(function() {
                     toast.style.opacity = '0';
@@ -636,16 +648,14 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'account';
             const themeOptions = document.querySelectorAll('[name="appearance[theme]"]');
             themeOptions.forEach(function(option) {
                 option.addEventListener('change', function() {
-                    const themeContainers = document.querySelectorAll('.border.rounded-lg.p-4');
+                    const themeContainers = document.querySelectorAll('.settings-theme-option');
                     themeContainers.forEach(function(container) {
-                        container.classList.remove('border-tydrapi-red', 'bg-tydrapi-darkgray');
-                        container.classList.add('border-tydrapi-darkgray', 'hover:border-tydrapi-gray');
+                        container.classList.remove('active');
                     });
                     
                     if (this.checked) {
-                        const selectedContainer = this.closest('.border.rounded-lg.p-4');
-                        selectedContainer.classList.remove('border-tydrapi-darkgray', 'hover:border-tydrapi-gray');
-                        selectedContainer.classList.add('border-tydrapi-red', 'bg-tydrapi-darkgray');
+                        const selectedContainer = this.closest('.settings-theme-option');
+                        selectedContainer.classList.add('active');
                     }
                 });
             });
