@@ -98,26 +98,28 @@ const Index = () => {
   const socialPosts = [
     {
       id: 1,
-      author: {
+      user: {
         name: "Pedro Mendes",
         username: "pedromendes",
-        avatar: "https://i.pravatar.cc/150?img=5"
+        avatar: "https://i.pravatar.cc/150?img=5",
+        isGroup: false
       },
       content: "Acabei de terminar a lista de exercícios de Cálculo III! Quem também já terminou?",
-      timestamp: "2h atrás",
+      time: "2h atrás",
       likes: 15,
       comments: 3,
       liked: false
     },
     {
       id: 2,
-      author: {
+      user: {
         name: "Mariana Costa",
         username: "marianacosta",
-        avatar: "https://i.pravatar.cc/150?img=6"
+        avatar: "https://i.pravatar.cc/150?img=6",
+        isGroup: false
       },
       content: "Alguém tem material de estudo para a prova de Estrutura de Dados?",
-      timestamp: "5h atrás",
+      time: "5h atrás",
       likes: 8,
       comments: 12,
       liked: true
